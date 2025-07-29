@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crop Prediction</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: url("/static/farm.webp") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      backdrop-filter: blur(2px);
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      color: white;
+    }
+
+    .container h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      color: #a4ffaf;
+    }
+
+    .container input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    .container input[type="text"]::placeholder {
+      color: #ccc;
+    }
+
+    .container input[type="text"]:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid #a4ffaf;
+    }
+
+    .container button {
+      margin-top: 20px;
+      padding: 14px 40px;
+      font-size: 1.1em;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .container button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+
+    #predict {
+      margin-top: 25px;
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #00ffcc;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 25px;
+      }
+
+      .container h1 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🌱 Crop Prediction</h1>
+    <form action="{{ url_for('predict') }}" method="post">
+      <input type="text" name="Nitrogen" placeholder="Nitrogen" required>
+      <input type="text" name="Phosphorus" placeholder="Phosphorus" required>
+      <input type="text" name="Potassium" placeholder="Potassium" required>
+      <input type="text" name="Temperature" placeholder="Temperature (°C)" required>
+      <input type="text" name="Humidity" placeholder="Humidity (%)" required>
+      <input type="text" name="pH" placeholder="Soil pH" required>
+      <input type="text" name="Rainfalll" placeholder="Rainfall (mm)" required>
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+      <div id="predict">{{ prediction_text }}</div>
+    {% endif %}
+  </div>
+
+</body>
+</html>
